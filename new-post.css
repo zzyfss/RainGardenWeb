@@ -1,0 +1,101 @@
+body{
+    font: 75.5% "Trebuchet MS", sans-serif;
+    background-color: #6495ed
+
+}
+* {
+padding: 0;
+margin: 0;
+list-style: none;
+}
+.main {
+    margin-left:auto;
+    margin-right:auto;
+    border-top: solid 1px #80add9;
+    border-bottom: solid 1px #d6d9db;
+    background: url(http://6.url.cn/zc/en/img/right.png) right top no-repeat #f8fdff;
+    padding-bottom: 80px;
+    min-height: 530px;
+    width: 746px;
+}
+.center_element {
+    position: relative;
+    left: 50%;
+    margin-left: -150px;
+}
+.box{
+    clear: both;
+    height: auto;
+}
+.header {
+    margin-top: 2em;
+    margin-bottom:1em;
+}
+.hidden {
+    display: none;
+}
+.input-label {
+    font-size: 16px;
+    float: left;
+    text-align: right;
+    width: 179px;
+    padding-right: 10px;
+    height: 44px;
+    padding-top: 6px;
+    height: 43px\9;
+    padding-top: 7px\9;
+    line-height: 20px;
+}
+.tip {
+    color: #808080;
+    background: 0;
+}
+.input-box {
+    float: left;
+    width: 306px;
+    height: 50px;
+    display: inline-block;
+    position: relative;
+}
+input.new-txt{
+    line-height: 18px;
+    font-size: 14px;
+    height: 18px;
+    width: 276px;
+    padding: 8px;
+    border: 1px solid #e1e8ed;
+    border-radius: 3px;
+}
+textarea{
+    line-height: 18px;
+    font-size: 14px;
+    width: 276px;
+    padding: 8px;
+    border: 1px solid #e1e8ed;
+    border-radius: 3px;
+    overflow: auto;
+}
+.input-info {
+    float: left;
+    width: 236px;
+    height: 40px;
+}
+.input-info table {
+    margin-left: 6px;
+    width: 235px;
+    height:35px;
+}
+img, table, tr, td {
+    border: 0;
+    border-collapse: collapse;
+}
+.ok {
+    color: #48a309;
+    background: url(http://6.url.cn/zc/en/img/ok.png) 0 11px no-repeat;
+    padding-left: 14px;
+}
+.error {
+    color: #f66;
+    background: url(http://6.url.cn/zc/en/img/pwd_sprite.png?v=10030) 0 -342px no-repeat;
+    padding-left: 14px;
+}
