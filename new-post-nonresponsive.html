@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+
+<html lang="us">
+    <head>
+        <meta charset="utf-8">
+
+        <title>Add a rain facility</title>
+        <link href="jquery-ui.css" rel="stylesheet" type="text/css">
+        <link href="jquery-ui.theme.css" rel="stylesheet">
+        <link href="new-post-nonresponsive.css" rel="stylesheet">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    </head>
+
+    <body>
+
+        <div class="bg">
+
+            <div class="main">
+                <h1 class="center_element header">Enter Rain Facility Information</h1>
+
+                <!-- Collect facility information -->
+                <form id="form-basic">
+
+                    <!-- Contact email -->
+                    <div class="box">
+                        <label class="input-label" for="email">Contact email</label>
+                        <div class="input-box">
+                            <input id="email" type="email" name="email"
+                                   class="new-txt" autofocus
+                                   pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+                                   maxlength="38">
+                        </div>
+                        <div class="input-info">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td id="email-info" class="tip">Please enter your email. Your email will be kept privately.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Facility type -->
+                    <div class="box">
+                        <label class="input-label" for="type">Rain facility type</label>
+                        <div class="input-box">
+                            <select id="type" name="type">
+                                <option value="Rain Garden">Rain Garden</option>
+                                <option value="Rain Barrel">Rain Barrel</option>
+                                <option value="Porous Pavement">Porous Pavement</option>
+                            </select>
+                        </div>
+                        <div class="input-info">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td id="type-info" class="ok">valid</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Facility name -->
+                    <div class="box">
+                        <label class="input-label" for="name">Rain facility name</label>
+                        <div class="input-box">
+                            <input type="text" class="new-txt" name="name"
+                                   maxlength="28">
+                        </div>
+                        <div class="input-info">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td id="name-info" class="tip">This is the name will be shown to public.
+                                            we do not recommend including your name.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Installation date -->
+                    <div id="box-date" class="box">
+                        <label class="input-label" for="date">Installation date</label>
+                        <div class="input-box">
+                            <input id="date" type="text" class="new-txt" name="date"
+                                   placeholder="yyyy-mm-dd" maxlength="10">
+                        </div>
+                        <div class="input-info">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td id="date-info" class="tip"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!--  Rain garden surface area -->
+                    <div id="box-rgd-area" class="box">
+                        <label class="input-label" for="rgd-area">Surface area</label>
+                        <div class="input-box">
+                            <input id="rgd-area" type="number" name="rgd-area" class="new-txt"
+                                   placeholder="in square feet" step="any" min="0" max="999999">
+                        </div>
+                        <div class="input-info">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td id="rgd-area-info" class="tip">Please enter the surface area of rain garden in square feet.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!--  Rain garden depth -->
+                    <div id="box-rgd-depth" class="box">
+                        <label class="input-label" for="rgd-depth">Depth</label>
+                        <div class="input-box">
+                            <input id="rgd-depth" type="number" name="rgd-depth" class="new-txt"
+                                   placeholder="in inches" step="any" min="0" max="999999">
+                        </div>
+                        <div class="input-info">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td id="rgd-depth-info" class="tip">Please enter the depth of rain garden in inches.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!--  Rain barrel size -->
+                    <div id="box-rbl" class="box">
+                        <label class="input-label" for="rbl-size">Size</label>
+                        <div class="input-box">
+                            <input id="rbl-size" name="size" type="number" class="new-txt"
+                                   placeholder="in gallons" step="any" min="0" max="999">
+                        </div>
+                        <div class="input-info">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td id="rbl-size-info" class="tip">Please enter the size of rain barrel in gallons.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!--  Image upload -->
+                    <div class="box">
+                        <label class="input-label" for="image">Image</label>
+                        <div class="input-box"  style="height:90px">
+                            <!-- Image upload choices -->
+                            <div id="radioset-image" class="radioset">
+                                <input type="radio" id="radio-url" name="radio" checked="checked">
+                                <label for="radio-url">URL</label>
+                                <input type="radio" id="radio-local" name="radio">
+                                <label for="radio-local">local file</label>
+                            </div>
+                            <!-- Hidden input file -->
+                            <input id="image" style="visibility:hidden;height:1px" name="image-file" type="file" accept="image/*">
+
+                            <!-- Image url -->
+                            <input type="text" class="new-txt" name="name"
+                                   maxlength="28">
+                        </div>
+                        <div class="input-info">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td id="image-info" class="tip">You can upload your image via URL or from your computer.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- User comments -->
+                    <div class="box">
+                        <label class="input-label" for="comments">Comments</label>
+                        <div class="input-box" style="height:100px">
+                            <textarea id="comments" name="comments"
+                                      form="form-basic"
+                                      rows="4" cols="40"
+                                      placeholder="200-character limit" step="any"
+                                      maxlength="200"></textarea>
+                        </div>
+                        <div class="input-info">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td id="comments-info" class="tip">Please leave us your comments.
+                                            If people are encouraged to visit, please provide your address.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Submit button -->
+                    <div class="box">
+                        <label class="input-label" ></label>
+                        <div class="input-box">
+                            <input id="btn-submit" type="submit" value="Submit!">
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+
+        <script src="external/jquery/jquery.js"></script>
+        <script src="jquery-ui.js"></script>
+        <script>
+
+            $( "#type" ).selectmenu({
+                width: 290
+            });
+
+
+            $( "#date" ).datepicker({
+                showAnim: "slideDown",
+                dateFormat: "yy-mm-dd"
+            });
+
+            $( "#radioset-image" ).buttonset();
+
+            $("#radioset-image").buttonset().find('label').css('width', '50%');
+
+            $( "#btn-submit" ).button();
+
+
+
+
+
+            $( "#tabs" ).tabs();
+
+
+
+            $( "#dialog" ).dialog({
+                autoOpen: false,
+                width: 400,
+                buttons: [
+                    {
+                        text: "Ok",
+                        click: function() {
+                            $( this ).dialog( "close" );
+                        }
+                    },
+                    {
+                        text: "Cancel",
+                        click: function() {
+                            $( this ).dialog( "close" );
+                        }
+                    }
+                ]
+            });
+
+            // Link to open the dialog
+            $( "#dialog-link" ).click(function( event ) {
+                $( "#dialog" ).dialog( "open" );
+                event.preventDefault();
+            });
+
+
+
+
+
+
+            $( "#slider" ).slider({
+                range: true,
+                values: [ 17, 67 ]
+            });
+
+
+            $( "#tooltip" ).tooltip();
+
+
+        </script>
+    </body>
+</html>

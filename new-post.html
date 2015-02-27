@@ -1,248 +1,363 @@
 <!DOCTYPE html>
-
-<html lang="us">
+<html lang="en">
     <head>
-        <meta charset="utf-8">
-
         <title>Add a rain facility</title>
-        <link href="jquery-ui.css" rel="stylesheet" type="text/css">
-        <link href="jquery-ui.theme.css" rel="stylesheet">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="jquery-ui.css" type="text/css">
+        <link rel="stylesheet" href="jquery-ui.theme.css">
+        <link rel="stylesheet" href="bootstrap.min.css">
         <link href="new-post.css" rel="stylesheet">
         <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    </head>
 
+    </head>
     <body>
 
-        <div class="bg">
+        <!-- Main section of the page -->
+        <div class="container center-block main">
 
-            <div class="main">
-                <h1 class="center_element header">Enter Rain Facility Information</h1>
+            <h2 class="text-center">Enter rain facility information.</h2>
 
-                <!-- Collect facility information -->
-                <form id="form-basic">
+            <!-- Information gather form
+(Extra js validation is needed.) -->
+            <form class="form-horizontal" role="form">
 
-                    <!-- Contact email -->
-                    <div class="box">
-                        <label class="input-label" for="email">Contact email</label>
-                        <div class="input-box">
-                            <input id="email" type="email" name="email"
-                                   class="new-txt" autofocus
-                                   pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
-                                   maxlength="38">
-                        </div>
-                        <div class="input-info">
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td id="email-info" class="tip">Please enter your email. Your email will be kept privately.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                <!-- Contact email -->
+                <div class="form-group has-feedback">
+                    <label class="control-label col-sm-3" for="email">Contact email</label>
+                    <div class="col-sm-6">
+                        <input type="email" class="form-control" name="email" id="email"
+                               autofocus
+                               maxlength="64"
+                               data-validation="email length required"
+                               data-validation-length="max64"
+                               data-validation-help="Your email will be kept private.">
+                        <span class="glyphicon form-control-feedback"></span>
+                    </div>
+                </div>
+
+                <!-- Facility type -->
+                <div class="form-group">
+                    <label class="control-label col-sm-3" for="type">Rain facility type</label>
+                    <div class="col-sm-6">
+                        <select id="type" name="type" class="form-control">
+                            <option value="rag">Rain Garden</option>
+                            <option value="rab">Rain Barrel</option>
+                            <option value="pop">Porous Pavement</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Facility name -->
+                <div class="form-group has-feedback">
+                    <label class="control-label col-sm-3" for="name">Rain facility name</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control"
+                               name="name"
+                               pattern="[a-zA-Z0-9\s]+"
+                               maxlength="18"
+                               data-validation="length alphanumeric required"
+                               data-validation-length="3-18"
+                               data-validation-allowing=" "
+                               data-validation-help="The facility name has to be an alphanumeric value between 3-18 characters.
+                                                     (Spaces are allowed).
+                                                     This is the name will be shown to public.
+                                                     we do not recommend including your name.">
+                        <span class="glyphicon form-control-feedback"></span>
+                    </div>
+                </div>
+
+                <!-- Installation date -->
+                <div class="form-group has-feedback">
+                    <label class="control-label col-sm-3" for="date">Installation date</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control"
+                               id="date" name="date"
+                               data-validation="date required"
+                               data-validation-format="yyyy-mm-dd"
+                               placeholder="yyyy-mm-dd"
+                               maxlength="10">
+                        <span class="glyphicon form-control-feedback"></span>
+                    </div>
+                </div>
+
+                <!-- Group the changable fields -->
+                <div id="field">
+
+                    <!-- Rain garden surface area -->
+                    <div class="form-group has-feedback" id="field-rag-area">
+                        <label class="control-label col-sm-3" for="rag-area">Surface area</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control"
+                                   name="rag-area" id="rag-area"
+                                   placeholder="in square feet"
+                                   maxlength="6"
+                                   required
+                                   data-validation="number"
+                                   data-validation-optional="true"
+                                   data-validation-allowing="float,range[0;999999]">
+                            <span class="glyphicon form-control-feedback"></span>
                         </div>
                     </div>
 
-                    <!-- Facility type -->
-                    <div class="box">
-                        <label class="input-label" for="type">Rain facility type</label>
-                        <div class="input-box">
-                            <select id="type" name="type">
-                                <option value="Rain Garden">Rain Garden</option>
-                                <option value="Rain Barrel">Rain Barrel</option>
-                                <option value="Porous Pavement">Porous Pavement</option>
-                            </select>
-                        </div>
-                        <div class="input-info">
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td id="type-info" class="ok">valid</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                    <!-- Rain garden depth -->
+                    <div class="form-group has-feedback" id="field-rag-depth">
+                        <label class="control-label col-sm-3" for="rag-depth">Depth</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="rag-depth"
+                                   name="rag-depth"
+                                   placeholder="in inches"
+                                   maxlength="6" required
+                                   data-validation="number"
+                                   data-validation-optional="true"
+                                   data-validation-allowing="float,range[0;999999]">
+                            <span class="glyphicon form-control-feedback"></span>
                         </div>
                     </div>
 
-                    <!-- Facility name -->
-                    <div class="box">
-                        <label class="input-label" for="name">Rain facility name</label>
-                        <div class="input-box">
-                            <input type="text" class="new-txt" name="name"
-                                   maxlength="28">
-                        </div>
-                        <div class="input-info">
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td id="name-info" class="tip">This is the name will be shown to public.
-                                            we do not recommend including your name.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                    <!-- Rain barrel size -->
+                    <div class="form-group hidden has-feedback" id="field-rab-size" >
+                        <label class="control-label col-sm-3" for="rab-size">Size</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control"
+                                   name="rab-size" id="rab-size"
+                                   placeholder="in gallons"
+                                   maxlength="6"
+                                   data-validation="number"
+                                   data-validation-optional="true"
+                                   data-validation-allowing="float,range[0;999999]">
+                            <span class="glyphicon form-control-feedback"></span>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Installation date -->
-                    <div id="box-date" class="box">
-                        <label class="input-label" for="date">Installation date</label>
-                        <div class="input-box">
-                            <input id="date" type="text" class="new-txt" name="date"
-                                   placeholder="yyyy-mm-dd" maxlength="10">
+                <!-- Upload image -->
+                <div class="form-group has-feedback">
+
+                    <label class="control-label col-sm-3" for="radioset-image">Image (optional)</label>
+                    <!-- Image upload choices -->
+                    <div class="col-sm-6">
+                        <div id="radioset-image" class="radioset">
+                            <input type="radio" id="radio-url" name="radio" checked="checked">
+                            <label for="radio-url">URL</label>
+                            <input type="radio" id="radio-local" name="radio">
+                            <label for="radio-local">Local file (&lt;2MB)</label>
                         </div>
-                        <div class="input-info">
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td id="date-info" class="tip"></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+
+                        <!-- Image url -->
+                        <input id="image-url"
+                               type="text" class="form-control" name="image-url"
+                               placeholder="Enter image URL"
+                               data-validation="url length"
+                               data-validation-optional="true"
+                               data-validation-length="max128"
+                               data-validation-help="You can upload your image via URL or from your computer. The image will be public."
+                               maxlength="128">
+                        <span style="padding-top:38px" class="glyphicon form-control-feedback"></span>
+                        <!-- Hidden input file -->
+                        <input id="image-file" style="visibility:hidden;height:1px"
+                               name="image-file" type="file" accept="image/*"
+                               data-validation-optional="true"
+                               data-validation="size"
+                               data-validation-max-size="2MB"
+                               data-validation-event="change"
+                               data-validation-error-msg="The chosen file is too large.">
+
                     </div>
 
-                    <!--  Rain garden surface area -->
-                    <div id="box-rgd-area" class="box">
-                        <label class="input-label" for="rgd-area">Surface area</label>
-                        <div class="input-box">
-                            <input id="rgd-area" type="number" name="rgd-area" class="new-txt"
-                                   placeholder="in square feet" step="any" min="0" max="999999">
-                        </div>
-                        <div class="input-info">
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td id="rgd-area-info" class="tip">Please enter the surface area of rain garden in square feet.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                </div>
+
+                <!-- User comments -->
+                <div class="form-group has-feedback">
+                    <label class="control-label col-sm-3" for="comments">Comments (optional)</label>
+                    <div class="col-sm-6">
+                        <span id="max-length-element">200</span> chars left
+                        <textarea id="comments" name="comments"
+                                  class="form-control" rows="3"
+                                  placeholder="200-character limit"
+                                  maxlength="200"
+                                  data-validation="length"
+                                  data-validation-optional="true"
+                                  data-validation-length="max200"
+                                  data-validation-help="Please leave us your comments. The comments will be public.
+                                                        If people are encouraged to visit the facility, please provide your address."></textarea>
                     </div>
+                </div>
 
-                    <!--  Rain garden depth -->
-                    <div id="box-rgd-depth" class="box">
-                        <label class="input-label" for="rgd-depth">Depth</label>
-                        <div class="input-box">
-                            <input id="rgd-depth" type="number" name="rgd-depth" class="new-txt"
-                                   placeholder="in inches" step="any" min="0" max="999999">
-                        </div>
-                        <div class="input-info">
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td id="rgd-depth-info" class="tip">Please enter the depth of rain garden in inches.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                <!-- Service agreement
+
+<input type="checkbox" data-validation="required"
+data-validation-error-msg="Please read to check agree to ">
+I agree to the <a href="..." target="_blank">terms of service
+-->
+
+                <!-- Submit button -->
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-6">
+                        <button id="btn-submit" type="submit">Submit</button>
                     </div>
+                </div>
 
-                    <!--  Rain barrel size -->
-                    <div id="box-rbl" class="box">
-                        <label class="input-label" for="rbl-size">Size</label>
-                        <div class="input-box">
-                            <input id="rbl-size" name="size" type="number" class="new-txt"
-                                   placeholder="in gallons" step="any" min="0" max="999">
-                        </div>
-                        <div class="input-info">
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td id="rbl-size-info" class="tip">Please enter the size of rain barrel in gallons.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
 
-                    <!-- User comments -->
-                    <div id="box-comments" class="box">
-                        <label class="input-label" for="comments">Comments</label>
-                        <div class="input-box">
-                            <textarea id="comments" name="comments"
-                                      rows="4" cols="40"
-                                      placeholder="200-character limit" step="any"
-                                      maxlength="200"></textarea>
-                        </div>
-                        <div class="input-info">
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td id="comments-info" class="tip">Please leave us your comments.
-                                            If people are encouraged to visit, please provide your address.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
 
-                </form>
-
-            </div>
+            </form>
         </div>
 
-
-        <script src="external/jquery/jquery.js"></script>
-        <script src="jquery-ui.js"></script>
-        <script>
-
-            $( "#type" ).selectmenu({
-                width: 290
-            });
-
-
-            $( "#date" ).datepicker({
-                showAnim: "slideDown",
-                dateFormat: "yy-mm-dd"
-            });
-
-            $( "#button" ).button();
-
-            $( "#radioset" ).buttonset();
-
-
-
-            $( "#tabs" ).tabs();
-
-
-
-            $( "#dialog" ).dialog({
-                autoOpen: false,
-                width: 400,
-                buttons: [
-                    {
-                        text: "Ok",
-                        click: function() {
-                            $( this ).dialog( "close" );
-                        }
-                    },
-                    {
-                        text: "Cancel",
-                        click: function() {
-                            $( this ).dialog( "close" );
-                        }
-                    }
-                ]
-            });
-
-            // Link to open the dialog
-            $( "#dialog-link" ).click(function( event ) {
-                $( "#dialog" ).dialog( "open" );
-                event.preventDefault();
-            });
-
-
-
-
-
-
-            $( "#slider" ).slider({
-                range: true,
-                values: [ 17, 67 ]
-            });
-
-
-            $( "#tooltip" ).tooltip();
-
-
-        </script>
     </body>
+
+
+    <script src="external/jquery/jquery.js"></script>
+    <script src="bootstrap.min.js"></script>
+    <script src="jquery-ui.js"></script>
+    <script src="form-validator/jquery.form-validator.js"></script>
+    <script>
+
+
+        // Set up validator
+        $.validate({
+            modules : 'file',
+            validateOnEvent :     true});
+
+        // Set up chars count down for comments
+        $('#comments').restrictLength( $('#max-length-element') );
+
+        // Set up glyphicon class after validating an input element
+        $('input')
+            .bind('validation', function(evt, isValid) {
+
+                // get the <span> element with class "form-control-feedback"
+                var feedback = $(this).siblings(".form-control-feedback");
+
+                // Add ok icon if valid
+                if(isValid) {
+                    feedback.addClass("glyphicon-ok").removeClass("glyphicon-remove");
+                }
+                else {
+                    feedback.addClass("glyphicon-remove")
+                            .removeClass("glyphicon-ok");
+                }
+        });
+
+        $('input').on('blur', function() {
+
+
+            if($(this).val()===''){
+
+                // check if the input has 'error' class.
+                // if not, remov any glyphicon
+                if(!$(this).hasClass("error")){
+                    var feedback= $(this).siblings(".form-control-feedback");
+                    feedback.removeClass("glyphicon-remove glyphicon-ok");
+                }
+            }
+        });
+
+        /*
+          Selectmenu for facility type.
+          Bind a handler that toggles the form elements to
+          show the elements of selected type and hide
+          the others. */
+
+        $( "#type" ).selectmenu({
+            change : function(event, ui){
+                // Get selected type
+                var type_str = $(this).val();
+
+                var field_selector = "[id^=field-"+type_str+"]";
+
+                // Remove hidden class first
+                $(field_selector).removeClass("hidden");
+
+                // Show the fields correspond to selected type
+                $(field_selector).slideDown()
+                .find("input").prop("required",true);
+
+                // Find the fields needed to be hidden
+                var hidden_fields = $("#field").children(":not("+field_selector+")");
+
+                // Clear the inputs and error messages
+                hidden_fields
+                .find("input").prop("required",false).val('').blur();
+
+                // Hide the fields
+                hidden_fields.slideUp();
+            }
+        });
+
+        // Datepicker for installation date
+        $( "#date" ).datepicker({
+            showAnim: "slideDown",
+            dateFormat: "yy-mm-dd"
+        });
+
+        // Radioset for image upload choices
+        $( "#radioset-image" ).buttonset();
+
+
+        $("#radioset-image").buttonset().find('label').css('width', '50%');
+
+        $("#radioset-image").on("change", function() {
+
+            // Get the id of checked radio
+            var checked_id = $("#radioset-image :radio:checked").attr('id');
+
+            // User chose to upload image by URL
+            if(checked_id ==='radio-url') {
+                // Clear the input file if any
+                $("#image-file").val('');
+
+                // Clear the file name and make url field editable
+                $("#image-url").val('').prop("disabled", false);
+
+                // Fire blur event to trigger validator
+                // in order to remove any error message
+                $("#image-url").blur();
+
+                // Reset placeholder
+                $("#image-url").prop("placeholder", "Enter image URL");
+            }
+            else{
+
+                // Clear the url and trigger blur() to dismiss error message
+                $("#image-url").val("").blur();
+
+                // Disable the input
+                $("#image-url").prop("disabled",true);
+
+                // Change the placeholder
+                $("#image-url").prop("placeholder", "Choose a local image file");
+            }
+        });
+
+        // Trigger input file when user clicked 'local file' radio
+        $('#radio-local').on("click", function(){
+
+            // Fire a click event
+            $("#image-file").click();
+
+        });
+
+        /*
+            Display image file name on the url field
+            when a file is selected.
+        */
+        $("#image-file").on("change", function () {
+            var file = $("#image-file")[0].files[0];
+
+            // A file is chosen
+            if(file){
+                // Display file name and disable the field
+                $("#image-url").val(file.name);
+
+            }
+            else{
+                $("#image-url").val("No file chosen");
+            }
+
+        });
+
+        $( "#btn-submit" ).button();
+
+
+    </script>
 </html>
