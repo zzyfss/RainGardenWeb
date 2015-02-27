@@ -1,13 +1,22 @@
 body{
     font: "Trebuchet MS", sans-serif;
-    background-color: #6495ed
+    background-color: #2275B5
 
 }
-.main {
-    background-color: #f8fdff;
-    padding-bottom: 30px;
-    height: auto;
-    max-width: 746px;
+.main-wrapper {
+   padding-top: 88px;
+   padding-bottom: 50px;
+}
+.form-canvas {
+   max-width: 768px;
+   border-radius: 18px;
+   background-color: #f8fdff;
+   height: auto;
+}
+.form-wrapper {
+  padding: 68px 0;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 .hidden {
     display: none;
@@ -15,4 +24,8 @@ body{
 .row{
     margin-left: 0;
     margin-right: 0;
+}
+p.tos {
+  float: left;
+  color: #8899a6;
 }
