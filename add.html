@@ -1,0 +1,207 @@
+<!-- Main section of the page -->
+<div class="container" ng-controller="addController">
+    <div class="form-canvas  center-block">
+
+        <!-- Information gather form -->
+        <div class="container-fluid form-wrapper">
+            <h2 style="padding-bottom:20px"
+                class="text-center">Enter your rain facility information.</h2>
+
+            <!-- This form is binded to rainModel -->
+            <form class="form-horizontal" role="form">
+
+                <!-- Contact email -->
+                <div class="form-group has-feedback">
+                    <label class="control-label col-sm-3" for="email">Contact email</label>
+                    <div class="col-sm-6">
+                        <input type="email" class="form-control" name="email" id="email"
+                               maxlength="64" ng-model="rainModel.email"
+                               data-validation="email length required"
+                               data-validation-length="max64"
+                               data-validation-help="Your email will be kept private.">
+                        <span class="glyphicon form-control-feedback"></span>
+                    </div>
+                </div>
+
+
+                <!-- Facility type -->
+                <div class="form-group">
+                    <label class="control-label col-sm-3" for="type">Rain facility type</label>
+                    <div class="col-sm-6">
+                        <select id="type" name="type" class="form-control">
+                            <option value="rag">Rain Garden</option>
+                            <option value="rab">Rain Barrel</option>
+                            <option value="pop">Porous Pavement</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Facility name -->
+                <div class="form-group has-feedback">
+                    <label class="control-label col-sm-3" for="name">Rain facility name</label>
+                    <div class="col-sm-6">
+                        <input ng-model="rainModel.name" type="text" class="form-control"
+                               name="name"
+                               pattern="[a-zA-Z0-9\s]+"
+                               maxlength="18"
+                               data-validation="length alphanumeric required"
+                               data-validation-length="3-18"
+                               data-validation-allowing=" "
+                               data-validation-help="The facility name has to be an alphanumeric value between 3-18 characters.
+                                                     (Spaces are allowed).
+                                                     This is the name will be shown to public.
+                                                     we do not recommend including your name.">
+                        <span class="glyphicon form-control-feedback"></span>
+                    </div>
+                </div>
+
+
+                <!-- Installation date -->
+                <div class="form-group has-feedback">
+                    <label class="control-label col-sm-3" for="date">Installation date</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control"
+                               id="date" name="date"
+                               data-validation="date required"
+                               data-validation-format="yyyy-mm-dd"
+                               placeholder="yyyy-mm-dd"
+                               maxlength="10">
+                        <span class="glyphicon form-control-feedback"></span>
+                    </div>
+                </div>
+
+                <!-- Group the changable fields -->
+                <div id="field">
+
+                    <!-- Rain garden surface area -->
+                    <div class="form-group has-feedback" id="field-rag-area">
+                        <label class="control-label col-sm-3" for="rag-area">Surface area</label>
+                        <div class="col-sm-6">
+                            <input ng-model="rainModel.rag.area" type="text" class="form-control"
+                                   name="rag-area" id="rag-area"
+                                   placeholder="in square feet"
+                                   maxlength="6"
+                                   required
+                                   data-validation="number"
+                                   data-validation-optional="true"
+                                   data-validation-allowing="float,range[0;999999]">
+                            <span class="glyphicon form-control-feedback"></span>
+                        </div>
+                    </div>
+
+                    <!-- Rain garden depth -->
+                    <div class="form-group has-feedback" id="field-rag-depth">
+                        <label class="control-label col-sm-3" for="rag-depth">Depth</label>
+                        <div class="col-sm-6">
+                            <input ng-model="rainModel.rag.depth" type="text" class="form-control" id="rag-depth"
+                                   name="rag-depth"
+                                   placeholder="in inches"
+                                   maxlength="6" required
+                                   data-validation="number"
+                                   data-validation-optional="true"
+                                   data-validation-allowing="float,range[0;999999]">
+                            <span class="glyphicon form-control-feedback"></span>
+                        </div>
+                    </div>
+
+                    <!-- Rain barrel size -->
+                    <div class="form-group hidden has-feedback" id="field-rab-size" >
+                        <label class="control-label col-sm-3" for="rab-size">Size</label>
+                        <div class="col-sm-6">
+                            <input ng-model="rainModel.rab.size" type="text" class="form-control"
+                                   name="rab-size" id="rab-size"
+                                   placeholder="in gallons"
+                                   maxlength="6"
+                                   data-validation="number"
+                                   data-validation-optional="true"
+                                   data-validation-allowing="float,range[0;999999]">
+                            <span class="glyphicon form-control-feedback"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Upload image -->
+                <div class="form-group has-feedback">
+
+                    <label class="control-label col-sm-3" for="radioset-image">Image (optional)</label>
+                    <!-- Image upload choices -->
+                    <div class="col-sm-6">
+                        <div id="radioset-image" class="radioset">
+                            <input ng-model="rainModel.radio" type="radio"
+                                   id="radio-url" name="radio" value="url" checked="checked">
+                            <label for="radio-url">URL</label>
+                            <input ng-model="rainModel.radio" type="radio"
+                                   id="radio-local" name="radio" value="local">
+                            <label for="radio-local">Local file (&lt;2MB)</label>
+                        </div>
+
+                        <!-- Image url -->
+                        <input ng-model="rainModel.url" id="image-url"
+                               type="text" class="form-control" name="image-url"
+                               placeholder="Enter image URL"
+                               data-validation="url length"
+                               data-validation-optional="true"
+                               data-validation-length="max128"
+                               data-validation-help="You can upload your image via URL or from your computer. The image will be public."
+                               maxlength="128">
+                        <span style="padding-top:38px" class="glyphicon form-control-feedback"></span>
+                        <!-- Hidden input file -->
+                        <input ng-model="rainModel.file" id="image-file" style="visibility:hidden;height:1px"
+                               name="image-file" type="file" accept="image/*"
+                               data-validation-optional="true"
+                               data-validation="size"
+                               data-validation-max-size="2MB"
+                               data-validation-event="change"
+                               data-validation-error-msg="The chosen file is too large.">
+
+                    </div>
+
+                </div>
+
+                <!-- User comments -->
+                <div class="form-group has-feedback">
+                    <label class="control-label col-sm-3" for="comments">Comments (optional)</label>
+                    <div class="col-sm-6">
+                        <span id="max-length-element">200</span> chars left
+                        <textarea ng-model="rainModel.comments" id="comments" name="comments"
+                                  class="form-control" rows="3"
+                                  placeholder="200-character limit"
+                                  maxlength="200"
+                                  data-validation="length"
+                                  data-validation-optional="true"
+                                  data-validation-length="max200"
+                                  data-validation-help="Please leave us your comments. The comments will be public.
+                                                        If people are encouraged to visit the facility, please provide your address."></textarea>
+                    </div>
+                </div>
+        </pre>
+
+                <!-- Service agreement
+
+<input type="checkbox" data-validation="required"
+data-validation-error-msg="Please read to check agree to ">
+I agree to the <a href="..." target="_blank">terms of service
+-->
+
+                <!-- Submit button -->
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-6">
+                        <button class="btn-large" id="btn-submit" type="submit">Submit</button>
+                    </div>
+                </div>
+
+                <!-- Term of services -->
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-6">
+                        <p class="small tos">By submitting, you agree to the
+                            <a href="/tos.html" class="legal-link" target="_blank">Terms of Service</a> and
+                            <a href="/privacy.html" class="legal-link" target="_blank">Privacy Policy</a>.
+                            Others might be able to visit your rain facility by address you provided.</p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
