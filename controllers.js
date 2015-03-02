@@ -11,9 +11,8 @@ rainApp.config(function($routeProvider) {
         templateUrl : 'exported-map.html',
         controller  : 'homeController'
     })
-    .when('/add', {
-        templateUrl : 'add.html',
-        controller  : 'addController'
+    .when('/summary', {
+        templateUrl : 'summary.html'
     })
     // route for the about page
     .when('/about', {
@@ -27,23 +26,12 @@ rainApp.config(function($routeProvider) {
 });
 
 
-// Create a rain app model for saving state
-rainApp.service("rainModel", ['$rootScope', function($rootScope) {
-
-
-}]);
-
 // create the controller and inject Angular's $scope
-rainApp.controller('homeController', function($scope, rainModel) {
+rainApp.controller('homeController', function($scope) {
 
-        mapInit();
+    homeInit();
 
 });
 
-rainApp.controller('addController', function($scope, rainModel) {
-        // Initializee the add page
-        addInit();
-        $scope.rainModel = rainModel;
-});
 
 

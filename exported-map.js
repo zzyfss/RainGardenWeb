@@ -1,4 +1,3 @@
-
 function mapInit() {
 
     google.maps.visualRefresh = true;
@@ -50,5 +49,14 @@ function mapInit() {
       }
     }
   };
+
+function homeInit(){
+
+  mapInit();
+
+  // Initialize add modal
+  addInit();
+
+}
 
   //google.maps.event.addDomListener(window, 'load', initialize);

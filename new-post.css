@@ -11,6 +11,14 @@ body{
 
 
 }
+.ui-front {
+  z-index: 9999;
+}
+.modal { overflow: visible; }
+.modal .large {
+    max-width: 788px;
+}
+
 .main-wrapper {
   padding-top: 38px;
   padding-bottom: 50px;

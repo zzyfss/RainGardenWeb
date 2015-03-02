@@ -1,6 +1,4 @@
 function addInit(){
-
-
             // Set up validator
             $.validate({
                 modules : 'file',
@@ -46,7 +44,7 @@ function addInit(){
           show the elements of selected type and hide
           the others. */
 
-            $( "#type" ).selectmenu({
+          $( "#type" ).selectmenu({
                 change : function(event, ui){
                     // Get selected type
                     var type_str = $(this).val();
@@ -69,7 +67,9 @@ function addInit(){
 
                     // Hide the fields
                     hidden_fields.slideUp();
-                }
+                },
+              width:"100%"
+
             });
 
             // Datepicker for installation date
@@ -145,8 +145,5 @@ function addInit(){
             });
 
             $( "#btn-submit" ).button();
-
-            /* Validate inputs if user navigates back to the page */
-            $('input').blur();
 };
 
