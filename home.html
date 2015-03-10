@@ -1,6 +1,62 @@
-<div class="container">
-    <div id="googft-mapCanvas" class="map-canvas"></div>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal">Add</button>
+<div class="container-fluid" id="home">
+
+    <h2>Welcome to Rain Facility Mapper!</h2>
+    <p style="font-size:18px">You can view or add (by right click) rain facilities on the map below. </p>
+
+    <!-- Search box -->
+    <div class="row">
+        <!--div class="col-sm-3">
+<button style="height:34px" id="locate-me">Locate me!</button>
+</div-->
+        <div style="padding-right:0px" class="col-sm-9 col-sm-offset-3">
+            <div class="search-wrapper" id="search"
+                 data-placement="bottom" data-trigger="manual"
+                 data-html="true"
+                 data-content='<i style="color:red" class="fa fa-exclamation-circle"></i> Sorry, we couldn&rsquo;t find the place.'>
+                <div>
+                    <input id="search-box" type="text"
+                           placeholder="Search a place by address, town, or zipcode">
+                    <button id="search-btn" class="btn btn-primary small-btn"><i class="fa fa-search"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Map canvas -->
+    <div class="map-canvas">
+        <div id="googft-mapCanvas"></div>
+    </div>
+
+    <!-- Map infowindow -->
+    <div id="add-info-window" class="hidden">
+        <div class="addInfoWindow" unselectable="on">
+        <h5>Drag this marker to desired location.</h5>
+        <div style="text-align:right">
+            <button type="button" class="btn btn-primary"
+                    data-toggle="modal" data-target="#addModal">
+                <i class="fa fa-anchor"></i> Add to here!</button>
+            <button id="cancel-btn" type="button" class="btn btn-default">Cancel</button>
+        </div>
+        </div>
+    </div>
+
+    <!--button type="button" class="btn btn-primary">Add</button-->
+
+    <!-- Success modal -->
+    <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="aaModalLabel">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h4 class="modal-title"><i style="color:green" class="fa fa-check-circle"></i> Added successfully!</h4>
+                </div>
+                <div style="text-align:right" class="modal-body">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Ok!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 'Add' form modal -->
     <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="aaModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg large">
             <div class="modal-content">
@@ -10,14 +66,29 @@
                 </div>
 
                 <div class="modal-body">
-                    <form class="form-horizontal" role="form">
+
+                    <!-- Display error messages received from server -->
+                    <div id="error-box" style="display:none" class="alert alert-danger"
+                         role="alert">
+                        <button type="button"
+                                class="close"
+                                aria-label="Close"><span aria-hidden="true">&times;</span>
+                        </button>
+                        <i class="fa fa-exclamation-triangle"></i>
+                        <div id="error-message"></div>
+                    </div>
+                    <form id="add-form" class="form-horizontal" role="form">
+
+                        <!-- Hidden lat lng retrieved from add_marker -->
+                        <input id="input-lat" name="lat" class="hidden">
+                        <input id="input-lng" name="lng" class="hidden">
 
                         <!-- Contact email -->
                         <div class="form-group has-feedback">
                             <label class="control-label col-sm-3" for="email">Contact email</label>
                             <div class="col-sm-6">
                                 <input type="email" class="form-control" name="email" id="email"
-                                       maxlength="64"
+                                       maxlength="64" required
                                        data-validation="email length required"
                                        data-validation-length="max64"
                                        data-validation-help="Your email will be kept private.">
@@ -33,7 +104,6 @@
                                 <select id="type" name="type" class="form-control">
                                     <option value="rag">Rain Garden</option>
                                     <option value="rab">Rain Barrel</option>
-                                    <option value="pop">Porous Pavement</option>
                                 </select>
                             </div>
                         </div>
@@ -43,13 +113,13 @@
                             <label class="control-label col-sm-3" for="name">Rain facility name</label>
                             <div class="col-sm-6">
                                 <input type="text" class="form-control"
-                                       name="name"
+                                       name="name" required
                                        pattern="[a-zA-Z0-9\s]+"
                                        maxlength="18"
                                        data-validation="length alphanumeric required"
                                        data-validation-length="3-18"
                                        data-validation-allowing=" "
-                                       data-validation-help="The facility name has to be an alphanumeric value between 3-18 characters.
+                                       data-validation-help="The facility name has to be an alphanumeric value between 3-18 characters
                                                              (Spaces are allowed).
                                                              This is the name will be shown to public.
                                                              we do not recommend including your name.">
@@ -63,9 +133,10 @@
                             <label class="control-label col-sm-3" for="date">Installation date</label>
                             <div class="col-sm-6">
                                 <input type="text" class="form-control"
-                                       id="date" name="date"
+                                       id="date" name="date" required
                                        data-validation="date required"
                                        data-validation-format="yyyy-mm-dd"
+                                       data-validation-help="You can enter an approximate date."
                                        placeholder="yyyy-mm-dd"
                                        maxlength="10">
                                 <span class="glyphicon form-control-feedback"></span>
@@ -101,7 +172,7 @@
                                            maxlength="6" required
                                            data-validation="number"
                                            data-validation-optional="true"
-                                           data-validation-allowing="float,range[0;999999]">
+                                           data-validation-allowing="float,range[0.001;999999]">
                                     <span class="glyphicon form-control-feedback"></span>
                                 </div>
                             </div>
@@ -116,7 +187,7 @@
                                            maxlength="6"
                                            data-validation="number"
                                            data-validation-optional="true"
-                                           data-validation-allowing="float,range[0;999999]">
+                                           data-validation-allowing="float,range[0.001;999999]">
                                     <span class="glyphicon form-control-feedback"></span>
                                 </div>
                             </div>
@@ -180,7 +251,8 @@
                         <!-- Submit button -->
                         <div class="form-group">
                             <div class="col-sm-offset-3 col-sm-6">
-                                <button class="btn-large" id="btn-submit" type="submit">Submit</button>
+                                <button style="width:100%;height:32px" class="btn-large"
+                                        id="btn-submit" type="submit">Submit</button>
                             </div>
                         </div>
 
